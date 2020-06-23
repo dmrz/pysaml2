@@ -176,15 +176,18 @@ class AttributeValueBase(SamlBase):
             type(None): '',
         }
 
+        # NOTE: Using custom str type for backward compatibility with python 2
+        _str = unicode if isinstance(value, unicode) else str
+
         # entries of xsd-types each declaring:
         # - a corresponding python type
         # - a function to turn a string into that type
         # - a function to turn that type into a text-value
         xsd_types_props = {
             'string': {
-                'type': str,
-                'to_type': str,
-                'to_text': str,
+                'type': _str,
+                'to_type': _str,
+                'to_text': _str,
             },
             'integer': {
                 'type': int,
